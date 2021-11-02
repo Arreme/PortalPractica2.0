@@ -53,7 +53,7 @@ Shader "Custom/PortalShader"
                     clip(-1);
                 float2 uv = i.screenPos.xy / i.screenPos.w;
                 fixed4 portalCol = tex2D(_MainTex, uv);
-                return portalCol; //* displayMask + _InactiveColor * (1 - displayMask);
+                return portalCol * displayMask + _InactiveColor * (1 - displayMask);
             }
             ENDCG
         }

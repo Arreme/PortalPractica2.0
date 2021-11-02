@@ -46,9 +46,12 @@ public class PortalCamera : MonoBehaviour
         var m = transform.localToWorldMatrix * virtualPortal.transform.worldToLocalMatrix * _playerCamera.transform.localToWorldMatrix;
         _portalCamera.transform.SetPositionAndRotation(m.GetColumn(3), m.rotation);
 
-        SetNearClipPlane();
+        _linkedPortal._screen.material.SetInt("displayMask", 0);
 
+        SetNearClipPlane();
         _portalCamera.Render();
+
+        _linkedPortal._screen.material.SetInt("displayMask",1);
 
         _screen.enabled = true;
     }
