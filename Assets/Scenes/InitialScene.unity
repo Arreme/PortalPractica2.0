@@ -1437,7 +1437,8 @@ MonoBehaviour:
   - {fileID: 116379848}
   - {fileID: 640535802}
   _rayCastInfo: {fileID: 6097033}
-  limit: 2
+  _limit: 1
+  _angleThreshold: 1
 --- !u!1 &1005312570
 GameObject:
   m_ObjectHideFlags: 0
