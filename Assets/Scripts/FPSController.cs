@@ -57,14 +57,19 @@ public class FPSController : MonoBehaviour
 
     void Awake()
     {
-        _currYaw = transform.rotation.eulerAngles.y;
-        _currPitch = _pitchController.transform.rotation.eulerAngles.x;
+        recalculateYawAndPitch();
 
         _startingGravity = -2 * _height / (_timeToMaxHeight * _timeToMaxHeight);
         _gravity = _startingGravity;
         _jumpSpeed = 2 * _height / _timeToMaxHeight;
     }
 
+    public void recalculateYawAndPitch()
+    {
+        _currPitch = _pitchController.transform.rotation.eulerAngles.x;
+        if (_currPitch > 180) _currPitch -= 360;
+        _currYaw = transform.rotation.eulerAngles.y;
+    }
     void FixedUpdate()
     {
         Move();

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PortalCamera : MonoBehaviour
 {
-    [SerializeField] private PortalCamera _linkedPortal;
+    public PortalCamera _linkedPortal;
     [SerializeField] private Camera _playerCamera;
-    [SerializeField] private Transform virtualPortal;
+    public Transform virtualPortal;
     private Camera _portalCamera;
     public MeshRenderer _screen;
     private RenderTexture _renderText;
