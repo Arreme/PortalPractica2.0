@@ -36,7 +36,7 @@ public class PortalCamera : MonoBehaviour
 
     public void Render()
     {
-        if (!VisibleFromCamera(_linkedPortal._screen,_playerCamera))
+        if (!VisibleFromCamera(_linkedPortal._screen, _playerCamera))
         {
             return;
         }
