@@ -27,6 +27,12 @@ public class Teleportable : MonoBehaviour
 
             _dir = portal._linkedPortal.transform.TransformDirection(l_dir);
             _pos = portal._linkedPortal.transform.TransformPoint(l_pos) + (portal._linkedPortal.transform.forward * _teleportOffset);
+            if (TryGetComponent(out Rigidbody rb))
+            {
+                Vector3 l_velocity = portal.virtualPortal.transform.InverseTransformDirection(rb.velocity);
+                rb.velocity = portal._linkedPortal.transform.TransformDirection(l_velocity);
+                transform.localScale *= portal._linkedPortal.transform.localScale.x / portal.transform.localScale.x;
+            }
         }
     }
 
@@ -40,7 +46,7 @@ public class Teleportable : MonoBehaviour
             transform.forward = _dir;
             if (TryGetComponent(out FPSController fpsController))
             {
-                fpsController.recalculateYawAndPitch();
+                //fpsController.recalculateYawAndPitch();
             }
             _controller.enabled = true;
         }

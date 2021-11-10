@@ -14,8 +14,11 @@ public class PortalCamera : MonoBehaviour
     [SerializeField] private float _nearClipOffset;
     [SerializeField] private float _nearClipLimit;
 
+    List<Teleportable2> _trackedTravellers;
+
     private void Awake()
     {
+        _trackedTravellers = new List<Teleportable2>();
         _portalCamera = transform.GetComponentInChildren<Camera>();
         _portalCamera.enabled = false;
     }    
@@ -80,5 +83,63 @@ public class PortalCamera : MonoBehaviour
     {
         Plane[] frustumPlanes = GeometryUtility.CalculateFrustumPlanes(camera);
         return GeometryUtility.TestPlanesAABB(frustumPlanes, renderer.bounds);
+    }
+
+    void LateUpdate()
+    {
+        HandleTravellers();
+    }
+
+    void HandleTravellers()
+    {
+
+        for (int i = 0; i < _trackedTravellers.Count; i++)
+        {
+            Teleportable2 traveller = _trackedTravellers[i];
+            Transform travellerT = traveller.transform;
+            Vector3 offsetFromPortal = travellerT.position - transform.position;
+            int portalSide = System.Math.Sign(Vector3.Dot(offsetFromPortal, transform.forward));
+            int portalSideOld = System.Math.Sign(Vector3.Dot(traveller.previousOffsetFromPortal, transform.forward));
+
+            if (portalSide != portalSideOld)
+            {
+                var m = _linkedPortal.transform.localToWorldMatrix * _linkedPortal.virtualPortal.worldToLocalMatrix * traveller.transform.localToWorldMatrix;
+                traveller.Teleport(this, _linkedPortal, m.GetColumn(3), m.rotation);
+                _linkedPortal.OnTravellerEnterPortal(traveller);
+                _trackedTravellers.RemoveAt(i);
+                i--;
+            }
+            else
+            {
+                traveller.previousOffsetFromPortal = offsetFromPortal;
+            }
+        }
+    }
+
+    public void OnTravellerEnterPortal(Teleportable2 traveller)
+    {
+        if (!_trackedTravellers.Contains(traveller))
+        {
+            traveller.previousOffsetFromPortal = traveller.transform.position - transform.position;
+            _trackedTravellers.Add(traveller);
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        var traveller = other.GetComponent<Teleportable2>();
+        if (traveller)
+        {
+            OnTravellerEnterPortal(traveller);
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        var traveller = other.GetComponent<Teleportable2>();
+        if (traveller && _trackedTravellers.Contains(traveller))
+        {
+            _trackedTravellers.Remove(traveller);
+        }
     }
 }
