@@ -6,6 +6,7 @@ public class PortalGun : MonoBehaviour
 {
     public string _portalEnabledTag;
     [SerializeField] private GameObject _previewPortal;
+    [SerializeField] private float _offset;
     public Camera _playerCamera;
     public float _maxDistance;
     public LayerMask _portalLayerMask;
@@ -25,12 +26,12 @@ public class PortalGun : MonoBehaviour
         _previewPortal.SetActive(_isActive);
         if (Input.GetMouseButtonUp(0) && _isActive)
         {
-            _bluePortal.transform.SetPositionAndRotation(_previewPortal.transform.position,_previewPortal.transform.rotation);
+            _bluePortal.transform.SetPositionAndRotation(_previewPortal.transform.position + (_previewPortal.transform.forward * _offset), _previewPortal.transform.rotation);
             _isActive = false;
         }
         if (Input.GetMouseButtonUp(1) && _isActive) 
         {
-            _orangePortal.transform.SetPositionAndRotation(_previewPortal.transform.position, _previewPortal.transform.rotation);
+            _orangePortal.transform.SetPositionAndRotation(_previewPortal.transform.position + (_previewPortal.transform.forward * _offset), _previewPortal.transform.rotation);
             _isActive = false;
         }
     }

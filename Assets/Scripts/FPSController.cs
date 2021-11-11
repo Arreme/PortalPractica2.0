@@ -130,7 +130,28 @@ public class FPSController : Teleportable2
         yaw += delta;
         smoothYaw += delta;
         transform.eulerAngles = Vector3.up * smoothYaw;
-        velocity = toPortal.transform.TransformVector(fromPortal.virtualPortal.InverseTransformVector(velocity));
+        velocity = toPortal.transform.TransformDirection(toPortal.virtualPortal.InverseTransformDirection(velocity));
         Physics.SyncTransforms();
+    }
+
+    public override void OffsetCollider(PortalCamera myPortal)
+    {
+
+        Vector3 point = myPortal.transform.TransformPoint(new Vector3(0, 0, 0.3f));
+        float t = (myPortal.transform.forward.x * (point.x - transform.position.x)) +
+                                             (myPortal.transform.forward.y * (point.y - transform.position.y)) +
+                                             (myPortal.transform.forward.z * (point.z - transform.position.z));
+
+        Vector3 colPoint = new Vector3(transform.position.x + (t * myPortal.transform.forward.x),
+                              transform.position.y + (t * myPortal.transform.forward.y),
+                              transform.position.z + (t * myPortal.transform.forward.z));
+        ;
+        controller.center = transform.InverseTransformPoint(colPoint);
+        //Debug.Log(controller.center);
+        if (controller.center.magnitude >= 0.5)
+        {
+            Debug.Log("Too far restarting cols");
+            controller.center = Vector3.zero;
+        }
     }
 }

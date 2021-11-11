@@ -9,5 +9,17 @@ public class Teleportable2 : MonoBehaviour
     {
         transform.position = pos;
         transform.rotation = rot;
+        if (TryGetComponent(out Rigidbody rb))
+        {
+            rb.velocity = toPortal.transform.TransformDirection(toPortal.virtualPortal.InverseTransformDirection(rb.velocity));
+            transform.localScale *= toPortal.transform.localScale.x / fromPortal.transform.localScale.x;
+        }
+        Physics.SyncTransforms();
+    }
+
+    public virtual void OffsetCollider(PortalCamera myPortal)
+    {
+        
+        
     }
 }

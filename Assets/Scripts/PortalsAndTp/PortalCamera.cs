@@ -100,7 +100,7 @@ public class PortalCamera : MonoBehaviour
             Vector3 offsetFromPortal = travellerT.position - transform.position;
             int portalSide = System.Math.Sign(Vector3.Dot(offsetFromPortal, transform.forward));
             int portalSideOld = System.Math.Sign(Vector3.Dot(traveller.previousOffsetFromPortal, transform.forward));
-
+            traveller.OffsetCollider(this);
             if (portalSide != portalSideOld)
             {
                 var m = _linkedPortal.transform.localToWorldMatrix * _linkedPortal.virtualPortal.worldToLocalMatrix * traveller.transform.localToWorldMatrix;

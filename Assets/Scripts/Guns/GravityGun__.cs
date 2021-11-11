@@ -6,7 +6,6 @@ public class GravityGun__ : MonoBehaviour
 {
     [SerializeField] private Camera _cam;
     [SerializeField] private float _maxDistance;
-
     Rigidbody takenObject;
     enum Status { taking, taken }
     Status currentStatus;
@@ -22,7 +21,6 @@ public class GravityGun__ : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(2))
         {
-            Debug.Log("GravityShoot");
             takenObject = gravityShoot(); //Raycast centro y choca rigidbody
         }
         if (takenObject != null)
@@ -82,12 +80,24 @@ public class GravityGun__ : MonoBehaviour
     
     private void updateTaken()
     {
+        takenObject.gameObject.layer = 3;
+        foreach (Transform trans in takenObject.GetComponentsInChildren<Transform>(true))
+        {
+            trans.gameObject.layer = 3;
+        }
         takenObject.transform.position = attachPosition.position;
         takenObject.transform.rotation = attachPosition.rotation;
+        takenObject.detectCollisions = false;
     }
 
     private void detachObject(float force)
     {
+        takenObject.gameObject.layer = 0;
+        foreach (Transform trans in takenObject.GetComponentsInChildren<Transform>(true))
+        {
+            trans.gameObject.layer = 0;
+        }
+        takenObject.detectCollisions = true;
         takenObject.isKinematic = false;
         takenObject.AddForce(attachPosition.forward * force);
         takenObject = null;
