@@ -26,13 +26,25 @@ public class PortalGun : MonoBehaviour
         _previewPortal.SetActive(_isActive);
         if (Input.GetMouseButtonUp(0) && _isActive)
         {
+            _bluePortal.gameObject.SetActive(true);
             _bluePortal.transform.SetPositionAndRotation(_previewPortal.transform.position + (_previewPortal.transform.forward * _offset), _previewPortal.transform.rotation);
+            if ((_orangePortal.transform.position - _bluePortal.transform.position).magnitude <= 2.5)
+            {
+                _orangePortal.gameObject.SetActive(false);
+            }
             _isActive = false;
+            //Update UI
         }
         if (Input.GetMouseButtonUp(1) && _isActive) 
         {
+            _orangePortal.gameObject.SetActive(true);
             _orangePortal.transform.SetPositionAndRotation(_previewPortal.transform.position + (_previewPortal.transform.forward * _offset), _previewPortal.transform.rotation);
+            if ((_bluePortal.transform.position - _orangePortal.transform.position).magnitude <= 2.4)
+            {
+                _bluePortal.gameObject.SetActive(false);
+            }
             _isActive = false;
+            //Update UI
         }
     }
 

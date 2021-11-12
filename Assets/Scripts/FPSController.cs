@@ -50,6 +50,11 @@ public class FPSController : Teleportable2
         smoothPitch = pitch;
     }
 
+    public void RecalculateDirection(Quaternion rotation)
+    {
+        yaw = rotation.eulerAngles.y;
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
@@ -103,7 +108,6 @@ public class FPSController : Teleportable2
         float mX = Input.GetAxisRaw("Mouse X");
         float mY = Input.GetAxisRaw("Mouse Y");
 
-        // Verrrrrry gross hack to stop camera swinging down at start
         float mMag = Mathf.Sqrt(mX * mX + mY * mY);
         if (mMag > 5)
         {
@@ -145,13 +149,13 @@ public class FPSController : Teleportable2
         Vector3 colPoint = new Vector3(transform.position.x + (t * myPortal.transform.forward.x),
                               transform.position.y + (t * myPortal.transform.forward.y),
                               transform.position.z + (t * myPortal.transform.forward.z));
-        ;
+
         controller.center = transform.InverseTransformPoint(colPoint);
-        //Debug.Log(controller.center);
+        controller.radius = 0.1f;
         if (controller.center.magnitude >= 0.5)
         {
-            Debug.Log("Too far restarting cols");
             controller.center = Vector3.zero;
+            controller.radius = 0.3f;
         }
     }
 }
