@@ -43,6 +43,14 @@ public class PortalCamera : MonoBehaviour
         {
             return;
         }
+        _screen.enabled = true;
+        _linkedPortal._screen.enabled = true;
+        if (!_linkedPortal.gameObject.activeInHierarchy || !gameObject.activeInHierarchy)
+        {
+            _screen.enabled = false;
+            _linkedPortal._screen.enabled = false;
+            return;
+        }
         _screen.enabled = false;
         CreateViewTexture();
 
@@ -92,7 +100,10 @@ public class PortalCamera : MonoBehaviour
 
     void HandleTravellers()
     {
-
+        if (!_linkedPortal.gameObject.activeInHierarchy || !gameObject.activeInHierarchy)
+        {
+            return;
+        }
         for (int i = 0; i < _trackedTravellers.Count; i++)
         {
             Teleportable2 traveller = _trackedTravellers[i];

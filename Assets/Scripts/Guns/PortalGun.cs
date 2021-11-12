@@ -15,7 +15,7 @@ public class PortalGun : MonoBehaviour
     [SerializeField] private GameObject _orangePortal;
 
     private bool _isActive;
-
+    [SerializeField] private PortalUIHandler _uiHandler;
     // Update is called once per frame
     void Update()
     {
@@ -33,18 +33,18 @@ public class PortalGun : MonoBehaviour
                 _orangePortal.gameObject.SetActive(false);
             }
             _isActive = false;
-            //Update UI
+            _uiHandler.updatingUI();
         }
         if (Input.GetMouseButtonUp(1) && _isActive) 
         {
             _orangePortal.gameObject.SetActive(true);
             _orangePortal.transform.SetPositionAndRotation(_previewPortal.transform.position + (_previewPortal.transform.forward * _offset), _previewPortal.transform.rotation);
-            if ((_bluePortal.transform.position - _orangePortal.transform.position).magnitude <= 2.4)
+            if ((_bluePortal.transform.position - _orangePortal.transform.position).magnitude <= 2.1)
             {
                 _bluePortal.gameObject.SetActive(false);
             }
             _isActive = false;
-            //Update UI
+            _uiHandler.updatingUI();
         }
     }
 
