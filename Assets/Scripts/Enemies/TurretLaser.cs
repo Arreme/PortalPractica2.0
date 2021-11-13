@@ -5,47 +5,38 @@ using UnityEngine;
 public class TurretLaser : MonoBehaviour
 {
     [SerializeField] private LineRenderer laserRenderer;
+    [SerializeField] private float maxLaserDist;
     [SerializeField] private LayerMask laserLayerMask;
-    [SerializeField] bool isActive = true;
-    [SerializeField] float maxLaserDist; 
+    [SerializeField] private bool isActive;
 
-    void updateState(bool isActive)
+    public void updateState(bool isActive)
     {
         laserRenderer.enabled = isActive;
-        this.isActive = isActive; 
+        this.isActive = isActive;
     }
-
 
     private void Update()
     {
-        if(isActive)
+        if (isActive)
         {
-        
             Ray r = new Ray(laserRenderer.transform.position, laserRenderer.transform.forward);
-
-            if(Physics.Raycast(r, out RaycastHit hitInfo, maxLaserDist, laserLayerMask))
+            if (Physics.Raycast(r, out RaycastHit hitInfo, maxLaserDist, laserLayerMask))
             {
-                laserRenderer.SetPosition(1, Vector3.forward * hitInfo.distance); //laserRenderer 2nd point to hit distance 
-               
-                /*
-                if (hitInfo.transform.gameObject.TryGetComponent(out HealthSystem hs))
+                laserRenderer.SetPosition(1, Vector3.forward * hitInfo.distance);
+                if (hitInfo.transform.gameObject.TryGetComponent(out TurretLaser laser))
                 {
-                    hs.takeDamage(hs.maxHealth); 
+                    laser.updateState(true);
                 }
-                */ 
-
-                //si el objeto contra el que toca tiene un laser, lo activa
-                if (hitInfo.transform.gameObject.TryGetComponent(out TurretLaser laser)) {
-                    laser.updateState(true); 
-                }
-
+                //Kill player
+                //if (hitInfo.transform.gameObject.TryGetComponent(out Player player))
+                //{
+                //    player.die();
+                //}
             }
-               
-            
             else
-                laserRenderer.SetPosition(1, Vector3.forward * maxLaserDist); //laserRenderer 2nd point to "infinite" distance 
-            
-
+            {
+                laserRenderer.SetPosition(1, Vector3.forward * maxLaserDist);
+            }
         }
     }
 }
