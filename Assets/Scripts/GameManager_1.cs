@@ -9,13 +9,13 @@ public class GameManager_1 : MonoBehaviour
     [SerializeField] private GameObject _player;
     [SerializeField] private GameObject _ui;
 
-    private bool _move;
+
     void Awake()
     {
         if (_gameManager == null)
         {
             _gameManager = this;
-            _move = true;
+          
         }
         else
         {
