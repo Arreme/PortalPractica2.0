@@ -140,6 +140,7 @@ public class FPSController : Teleportable2
 
     public override void OffsetCollider(PortalCamera myPortal)
     {
+
         Vector3 point = myPortal.transform.TransformPoint(new Vector3(0, 0, 0.3f));
         float t = (myPortal.transform.forward.x * (point.x - transform.position.x)) +
                                              (myPortal.transform.forward.y * (point.y - transform.position.y)) +
@@ -155,7 +156,6 @@ public class FPSController : Teleportable2
         {
             controller.center = Vector3.zero;
             controller.radius = 0.3f;
-            controller.height = 2;
         }
     }
 }
