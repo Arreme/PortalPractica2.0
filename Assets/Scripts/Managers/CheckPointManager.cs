@@ -10,7 +10,7 @@ public class CheckPointManager : MonoBehaviour
     {
         GameObject checkPointFather = GameObject.Find("CheckPoints");
         _checkPoints = checkPointFather.GetComponentsInChildren<CheckPointTrigger>();
-        _player.SetPositionAndRotation(_checkPoints[0].transform.position,_checkPoints[0].transform.rotation);
+        _player.SetPositionAndRotation(_checkPoints[StData.Checkpoint].transform.position,_checkPoints[StData.Checkpoint].transform.rotation);
         Physics.SyncTransforms();
     }
 

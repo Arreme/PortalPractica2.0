@@ -7,11 +7,6 @@ using UnityEngine.SceneManagement;
 public class GameOver : MonoBehaviour
 {
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.U)) GameOverEvent();
-    }
-
     public void GameOverEvent()
     {
         GetComponent<CheckPointManager>().GoToCheckPoint();
@@ -19,7 +14,7 @@ public class GameOver : MonoBehaviour
 
     public void RestartButton()
     {
-        SceneManager.LoadScene("FinalScene"); 
+        SceneManager.LoadScene("FinalScene2"); 
     }
 
     public void ExitButton()
