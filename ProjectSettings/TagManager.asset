@@ -6,6 +6,7 @@ TagManager:
   tags:
   - placeable
   - Cube
+  - Turret
   layers:
   - Default
   - TransparentFX
