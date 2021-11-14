@@ -13,7 +13,11 @@ public class ButtonEvent : MonoBehaviour
     {
         bool canBeCalled = isActive;
         if (canBeCalled)
+        {
             buttonEvent.Invoke();
+            AudioManager._instance.PlayAudio((int)Audios.BUTTON);
+        }
+            
         if (onceTrigger) isActive = false;
         return canBeCalled;
     }

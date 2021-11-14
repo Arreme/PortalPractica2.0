@@ -27,6 +27,7 @@ public class TurretLaser : MonoBehaviour
                 {
                     if (hitInfo.transform.CompareTag("Turret"))
                     {
+                        AudioManager._instance.PlayAudio((int)Audios.BURNT);
                         Destroy(hitInfo.transform.gameObject);
                     } else
                     {

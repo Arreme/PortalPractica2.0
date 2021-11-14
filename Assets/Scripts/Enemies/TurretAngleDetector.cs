@@ -17,11 +17,13 @@ public class TurretAngleDetector : MonoBehaviour
         {
             isActive = false;
             _turretLaser.updateState(false);
+            AudioManager._instance.PlayAudio((int)Audios.OBJBREAK);
         }
         if (!isActive & angle < maxAngle)
         {
             isActive = true;
             _turretLaser.updateState(true);
+            AudioManager._instance.PlayAudio((int) Audios.LASER2);
         }
     }
 }

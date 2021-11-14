@@ -11,7 +11,11 @@ public class DoorButton : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Cube"))
-            _linkedDoor.Open(); 
+        {
+            _linkedDoor.Open();
+            AudioManager._instance.PlayAudio((int) Audios.BUTTON );
+        }
+            
     }
 
     private void OnTriggerExit(Collider other)

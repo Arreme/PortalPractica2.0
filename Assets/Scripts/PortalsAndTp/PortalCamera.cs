@@ -114,6 +114,7 @@ public class PortalCamera : MonoBehaviour
             traveller.OffsetCollider(this);
             if (portalSide != portalSideOld)
             {
+                AudioManager._instance.PlayAudio((int)Audios.TELEPORT);
                 var m = _linkedPortal.transform.localToWorldMatrix * _linkedPortal.virtualPortal.worldToLocalMatrix * traveller.transform.localToWorldMatrix;
                 traveller.Teleport(this, _linkedPortal, m.GetColumn(3), m.rotation);
                 _linkedPortal.OnTravellerEnterPortal(traveller);

@@ -7,7 +7,11 @@ public class CheckPointTrigger : MonoBehaviour
     [SerializeField] private int _number;
     private void OnTriggerEnter(Collider other)
     {
-        StData.Checkpoint = _number;
-        GetComponent<BoxCollider>().enabled = false;
+        if (other.CompareTag("Player"))
+        {
+            StData.Checkpoint = _number;
+            GetComponent<BoxCollider>().enabled = false;
+        }
+        
     }
 }

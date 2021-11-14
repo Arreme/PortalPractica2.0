@@ -42,6 +42,7 @@ public class PortalGun : MonoBehaviour
             }
             _isActive = false;
             _uiHandler.updatingUI();
+            AudioManager._instance.PlayAudio((int)Audios.LASER1);
         }
         if (Input.GetMouseButtonUp(1) && _isActive) 
         {
@@ -54,6 +55,7 @@ public class PortalGun : MonoBehaviour
             }
             _isActive = false;
             _uiHandler.updatingUI();
+            AudioManager._instance.PlayAudio((int)Audios.LASER1);
         }
     }
 

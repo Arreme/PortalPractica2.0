@@ -6,11 +6,12 @@ public class ObjectHealthSystem : AbstractHealthSystem
 {
     public override void takeDamage()
     {
+        AudioManager._instance.PlayAudio((int)Audios.OBJBREAK);
         Destroy(gameObject);
     }
 
     public override void takeLaserDamage()
     {
-        
+
     }
 }
