@@ -25,9 +25,15 @@ public class TurretLaser : MonoBehaviour
                 laserRenderer.SetPosition(1, Vector3.forward * hitInfo.distance);
                 if (hitInfo.transform.gameObject.TryGetComponent(out TurretLaser laser))
                 {
-                    laser.updateState(true);
+                    if (hitInfo.transform.CompareTag("Turret"))
+                    {
+                        Destroy(hitInfo.transform.gameObject);
+                    } else
+                    {
+                        laser.updateState(true);
+                    }
+                    
                 }
-
                 if (hitInfo.transform.gameObject.TryGetComponent(out AbstractHealthSystem hitTarget))
                 {
                     hitTarget.takeLaserDamage();

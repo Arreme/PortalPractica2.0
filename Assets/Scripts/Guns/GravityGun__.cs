@@ -87,7 +87,11 @@ public class GravityGun__ : MonoBehaviour
         }
         takenObject.transform.position = attachPosition.position;
         takenObject.transform.rotation = attachPosition.rotation;
-        takenObject.detectCollisions = false;
+        if (!takenObject.CompareTag("BlockingCube"))
+        {
+            takenObject.detectCollisions = false;
+        }
+        
     }
 
     private void detachObject(float force)

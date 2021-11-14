@@ -8,27 +8,20 @@ public class TurretAngleDetector : MonoBehaviour
     [SerializeField] private float maxAngle;
     private bool isActive = true;
 
-    [SerializeField] private UnityEvent activate;
-    [SerializeField] private UnityEvent deactivate;
+    [SerializeField] private TurretLaser _turretLaser;
 
     private void Update()
     {
-        //float angle = Vector3.Angle(transform.up, Vector3.up);
-        //Debug.Log("Angle = " + angle);
-
-        float angle = Mathf.Abs(Vector3.Angle(transform.up, Vector3.up)); 
+        float angle = Vector3.Angle(transform.up, Vector3.up);
         if (isActive && angle > maxAngle)
         {
             isActive = false;
-            deactivate.Invoke(); 
+            _turretLaser.updateState(false);
         }
-
-        if (!isActive && angle < maxAngle)
+        if (!isActive & angle < maxAngle)
         {
             isActive = true;
-            activate.Invoke();
+            _turretLaser.updateState(true);
         }
-
-
     }
 }
