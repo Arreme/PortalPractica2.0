@@ -21,6 +21,8 @@ public class GravityGun__ : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(2))
         {
+            
+            AudioManager._instance.PlayAudio((int) Audios.LASER2);
             takenObject = gravityShoot(); //Raycast centro y choca rigidbody
         }
         if (takenObject != null)
