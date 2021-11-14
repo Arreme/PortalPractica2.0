@@ -27,11 +27,11 @@ public class TurretLaser : MonoBehaviour
                 {
                     laser.updateState(true);
                 }
-                //Kill player
-                //if (hitInfo.transform.gameObject.TryGetComponent(out Player player))
-                //{
-                //    player.die();
-                //}
+
+                if (hitInfo.transform.gameObject.TryGetComponent(out AbstractHealthSystem hitTarget))
+                {
+                    hitTarget.takeLaserDamage();
+                }
             }
             else
             {

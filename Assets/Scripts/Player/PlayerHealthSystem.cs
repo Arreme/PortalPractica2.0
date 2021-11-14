@@ -8,4 +8,9 @@ public class PlayerHealthSystem : AbstractHealthSystem
     {
         GameManager_1._gameManager.DeathEvent();
     }
+
+    public override void takeLaserDamage()
+    {
+        GameManager_1._gameManager.DeathEvent();
+    }
 }

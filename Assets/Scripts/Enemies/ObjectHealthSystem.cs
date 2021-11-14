@@ -8,4 +8,9 @@ public class ObjectHealthSystem : AbstractHealthSystem
     {
         Destroy(gameObject);
     }
+
+    public override void takeLaserDamage()
+    {
+        
+    }
 }

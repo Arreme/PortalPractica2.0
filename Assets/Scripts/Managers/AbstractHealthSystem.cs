@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class AbstractHealthSystem : MonoBehaviour
 {
-    public abstract void takeDamage(); 
+    public abstract void takeDamage();
 
+    public abstract void takeLaserDamage();
 }
