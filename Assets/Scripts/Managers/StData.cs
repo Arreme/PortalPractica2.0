@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class StData
 {
-    private static int _checkpoint;
+    private static int _checkpoint = 0;
     public static int Checkpoint
     {
         get { return _checkpoint; }
